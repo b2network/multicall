@@ -162,12 +162,26 @@ Alternatively, you can:
 
 ### New Deployments
 
-There are two ways to get Multicall3 deployed to a chain:
+There are three ways to get Multicall3 deployed to a chain:
 
 1. Deploy it yourself using a pre-signed transaction. Details on how to do this are in the below paragraph.
 2. Request deployment by [opening an issue](https://github.com/mds1/multicall/issues/new?assignees=mds1&labels=Deployment+Request&projects=&template=deployment_request.yml).
    You can significantly reduce the time to deployment by sending funds to cover the deploy cost to the deployer account: `0x05f32B3cC3888453ff71B01135B34FF8e41263F2`
+3. Manual deployment
+```bash
+# 3.1. Install Foundry
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
 
+# 3.2. Deploy Multicall3
+$ forge create --rpc-url <your_rpc_url> \
+--private-key <your_private_key> \
+--gas-price 2500000000 \
+src/Multicall3.sol:Multicall3
+
+# 3.3. Call Multicall3 getChainId method
+cast call <multicall3_address> "getChainId()" --rpc-url <your_rpc_url> 
+```
 > [!WARNING]
 > Before using the signed transaction, you **MUST** make sure the chain's gas metering is equivalent to the EVM's.
 >
